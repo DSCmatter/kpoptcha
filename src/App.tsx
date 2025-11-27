@@ -5,15 +5,13 @@ import Header from './components/Header';
 import Grid from './components/Grid';
 
 function App() {
-    // No more "user" or "loading" states needed!
     const [currentTask, setCurrentTask] = useState<Task | null>(null);
     const [selectedTiles, setSelectedTiles] = useState<Set<number>>(new Set());
     const [score, setScore] = useState(0);
-    const [globalCount, setGlobalCount] = useState(1204); // Start with a fake number
+    const [globalCount, setGlobalCount] = useState(1204); 
     const [verifying, setVerifying] = useState(false);
     const [feedback, setFeedback] = useState<'success' | 'error' | null>(null);
 
-    // 1. Task Generation Logic (Pure JavaScript)
     const generateTask = useCallback(() => {
         const targetIdol = IDOL_DATABASE[Math.floor(Math.random() * IDOL_DATABASE.length)];
         const correctCount = Math.floor(Math.random() * 3) + 3; 
@@ -52,12 +50,10 @@ function App() {
         setFeedback(null);
     }, []);
 
-    // Load first task on mount
     useEffect(() => { 
         if (!currentTask) generateTask(); 
     }, [generateTask, currentTask]);
 
-    // 2. Handlers
     const handleToggle = (index: number) => {
         if (verifying || feedback) return;
         const newSet = new Set(selectedTiles);
@@ -86,10 +82,7 @@ function App() {
         if (isSuccess) {
             setFeedback('success');
             setScore(s => s + 10);
-            
-            // Fake the "Global Count" going up locally
             setGlobalCount(prev => prev + 1);
-            
             setTimeout(() => { 
                 generateTask(); 
                 setVerifying(false); 
@@ -102,7 +95,8 @@ function App() {
     };
 
     return (
-        <div className="min-h-screen bg-slate-900 flex flex-col items-center p-8">
+        // Changed p-8 to p-4 for mobile, keeping md:p-8 for desktop
+        <div className="min-h-screen bg-slate-900 flex flex-col items-center p-4 md:p-8">
             <Header score={score} globalCount={globalCount} />
             <Grid 
                 currentTask={currentTask}
@@ -113,8 +107,19 @@ function App() {
                 onVerify={handleVerify}
                 onRefresh={generateTask}
             />
+            
             <div className="mt-8 text-sm text-slate-500 text-center max-w-md">
-                <p>Offline Mode • Images loaded from <code>public/images/</code></p>
+                <p>
+                    Built by{' '}
+                    <a 
+                        href="https://github.com/DSCmatter" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="text-pink-500 hover:text-pink-400 font-bold transition-colors border-b border-pink-500/30 hover:border-pink-500"
+                    >
+                        DSCmatter
+                    </a>
+                </p>
             </div>
         </div>
     );
