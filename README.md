@@ -1,1 +1,1 @@
-### A simple kpoptcha for all 🫰
+### A simple kpoptcha for y'all 🫰
