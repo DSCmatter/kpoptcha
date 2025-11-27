@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Background with Glow Effect -->
+  <defs>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Main Box -->
+  <rect x="4" y="4" width="56" height="56" rx="12" fill="#0f172a" stroke="#d946ef" stroke-width="4" filter="url(#glow)" />
+  
+  <!-- The 'K' Logo -->
+  <text x="32" y="47" font-family="Verdana, sans-serif" font-weight="900" font-size="42" text-anchor="middle" fill="#d946ef" filter="url(#glow)">K</text>
+  
+  <!-- Little Tech Detail -->
+  <circle cx="50" cy="14" r="3" fill="#fff" />
+</svg>
